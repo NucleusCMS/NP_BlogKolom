@@ -20,9 +20,12 @@ class NP_BlogKolom extends NucleusPlugin {
 	return 'Call this instead of &lt;%blog()%&gt; to show your items side by side in a table by using &lt;%BlogKolom(template,2x5)%&gt; or &lt;%BlogKolom(template,2x5(1))%&gt;.';
                                     }
 
-	function doTemplateVar(	&$item, $type, $p1='' )
+	function doTemplateVar(	&$item)
 	{
 		global $startpos;
+        $params = func_get_args();
+        $type = $params[1];
+        $p1 = isset($params[2]) ? $params[2] : '';
 		$pos = isset($startpos) ? (int)$startpos : 0 ;
 		$amount = $this->amount;
 		if ($amount < $this->getTotal())
@@ -56,13 +59,14 @@ class NP_BlogKolom extends NucleusPlugin {
 		}
 	}
 
-	function doSkinVar(	$skinType,
-						$template,
-						$amount = '2x5',
-						$category = ''
-						)
+	function doSkinVar($skinType)
 	{
 		global $manager, $blog, $CONF, $startpos, $catid;
+
+		$p = func_get_args();
+		$template = $p[1];
+		$amount   = isset($p[2]) ? $p[2] : '2x5';
+		$category = isset($p[3]) ? $p[3] : '';
 		
 		if(!empty($catid)) $category = $blog->getCategoryName($catid);
 //		if($category == '' || !empty($catid)) $category = $blog->getCategoryName($catid);
