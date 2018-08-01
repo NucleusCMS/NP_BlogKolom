@@ -389,4 +389,3 @@ class NP_BlogKolom extends NucleusPlugin {
 			$blog->setSelectedCategory($catid);
 	}
 }
-?>
