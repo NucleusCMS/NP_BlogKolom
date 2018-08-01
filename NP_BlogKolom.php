@@ -104,7 +104,7 @@ class NP_BlogKolom extends NucleusPlugin {
 	                       $cols
 	                       )
 	{
-		global $manager, $blog, $CONF, $HTTP_COOKIE_VARS;
+		global $blogName,$manager, $blog, $CONF, $HTTP_COOKIE_VARS;
         if ($blogName)
         {
 			$b =& $manager->getBlog(getBlogIDFromName($params[2]));
@@ -137,7 +137,7 @@ class NP_BlogKolom extends NucleusPlugin {
 	                        $cols
 	                        )
 	{
-		global $manager, $blog, $CONF, $HTTP_COOKIE_VARS, $currentTemplateName;
+		global $blogName, $manager, $blog, $CONF, $HTTP_COOKIE_VARS, $currentTemplateName;
 		if ($blogName)
 		{
 			$b =& $manager->getBlog(getBlogIDFromName($params[2]));
