@@ -35,16 +35,16 @@ class NP_BlogKolom extends NucleusPlugin {
 			case 'prev':
 				if ($amount <= $pos)
 				{
-					$str  = '<a href="' . htmlspecialchars($this->url($pos-$amount)) . '">';
-					$str .= htmlspecialchars($p1) . '</a>';
+					$str  = '<a href="' . hsc($this->url($pos-$amount)) . '">';
+					$str .= hsc($p1) . '</a>';
 					echo $str;
 				}
 				return;
 			case 'next':
 				if ( $pos+$amount < $this->getTotal() )
 				{
-					$str  = '<a href="' . htmlspecialchars($this->url($pos+$amount)) . '">';
-					$str .= htmlspecialchars($p1) . '</a>';
+					$str  = '<a href="' . hsc($this->url($pos+$amount)) . '">';
+					$str .= hsc($p1) . '</a>';
 					echo $str;
 				}
 				return;
@@ -374,7 +374,7 @@ class NP_BlogKolom extends NucleusPlugin {
 		$qs = '';
 		foreach($qs_array as $key=>$value)
 		{
-			$qs .= '&' . htmlspecialchars($key) . '=' . htmlspecialchars($value);
+			$qs .= '&' . hsc($key) . '=' . hsc($value);
 		}
 		$qs = ltrim($qs, '&');
 		return '?'. $qs;
