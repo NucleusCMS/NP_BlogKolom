@@ -175,14 +175,14 @@ class NP_BlogKolom extends NucleusPlugin {
 		echo "<table class=\"blogkolom\">";
 
 		$parser->parse($template['ITEM_HEADER']);
+		$param = array
+        (
+            'blog' => &$b,
+            'item' => &$item
+        );
 		$manager->notify
 		(
-			'PreItem',
-			array
-			(
-				'blog' => &$b,
-				'item' => &$item
-			)
+			'PreItem',$param
 		);
 		
 		// loop over all items
@@ -226,48 +226,50 @@ class NP_BlogKolom extends NucleusPlugin {
 					if ($old_date != 0)
 					{
 						$oldTS = strtotime($old_date);
+						$param = array
+                        (
+                            'blog'		=> &$b,
+                            'timestamp'	=> $oldTS
+                        );
 						$manager->notify
 						(
-							'PreDateFoot',
-							array
-							(
-								'blog'		=> &$b,
-								'timestamp'	=> $oldTS
-							)
+							'PreDateFoot',$param
 						);
-						$tmp_footer = strftime($template['DATE_FOOTER'], $oldTS);
-						$parser->parse($tmp_footer);
+						if(isset($template['DATE_FOOTER'])) {
+							$tmp_footer = strftime($template['DATE_FOOTER'], $oldTS);
+							$parser->parse($tmp_footer);
+						}
+                        $param = array
+                        (
+                            'blog'		=> &$b,
+                            'timestamp' => $oldTS
+                        );
 						$manager->notify
 						(
-							'PostDateFoot',
-							array
-							(
-								'blog'		=> &$b,
-								'timestamp' => $oldTS
-							)
+							'PostDateFoot',$param
 						);						
 					}
+                    $param = array
+                    (
+                        'blog'		=> &$b,
+                        'timestamp' => $timestamp
+                    );
 					$manager->notify
 					(
-						'PreDateHead',
-						array
-						(
-							'blog'		=> &$b,
-							'timestamp' => $timestamp
-						)
+						'PreDateHead',$param
 					);
 					// note, to use templatvars in the dateheader, the %-characters need to be doubled in
 					// order to be preserved by strftime
 					$tmp_header = strftime((isset($template['DATE_HEADER']) ? $template['DATE_HEADER'] : null), $timestamp);
 					$parser->parse($tmp_header);
+                    $param = array
+                    (
+                        'blog'		=> &$b,
+                        'timestamp'	=> $timestamp
+                    );
 					$manager->notify
 					(
-						'PostDateHead',
-						array
-						(
-							'blog'		=> &$b,
-							'timestamp'	=> $timestamp
-						)
+						'PostDateHead',$param
 					);
 				}
 				$old_date = $new_date;
@@ -278,14 +280,14 @@ class NP_BlogKolom extends NucleusPlugin {
 			$parser->parse($template['ITEM']);			
 			if ($itemcount == $numrows)
 			{
+                $param = array
+                (
+                    'blog'	=> &$b,
+                    'item'	=> &$item
+                );
 				$manager->notify
 				(
-					'PostItem',
-					array
-					(
-						'blog'	=> &$b,
-						'item'	=> &$item
-					)
+					'PostItem',$param
 				);
 			}
 			// and close this tag
@@ -300,24 +302,24 @@ class NP_BlogKolom extends NucleusPlugin {
 		// add another date footer if there was at least one item
 		if (($numrows > 0) && $dateheads)
 		{
+            $param = array
+            (
+                'blog'		=> &$b,
+                'timestamp'	=> strtotime($old_date)
+            );
 			$manager->notify
 			(
-				'PreDateFoot',
-				array
-				(
-					'blog'		=> &$b,
-					'timestamp'	=> strtotime($old_date)
-				)
+				'PreDateFoot',$param
 			);
 			$parser->parse($template['DATE_FOOTER']);
+            $param = array
+            (
+                'blog'		=> &$b,
+                'timestamp'	=> strtotime($old_date)
+            );
 			$manager->notify
 			(
-				'PostDateFoot',
-				array
-				(
-					'blog'		=> &$b,
-					'timestamp'	=> strtotime($old_date)
-				)
+				'PostDateFoot',$param
 			);
 		}
 
