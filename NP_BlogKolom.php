@@ -186,6 +186,7 @@ class NP_BlogKolom extends NucleusPlugin {
 		);
 		
 		// loop over all items
+		$itemcount = 0;
 		while ($item = mysql_fetch_object($items))
 		{
 			$item->timestamp = strtotime($item->itime);	// string timestamp -> unix timestamp
