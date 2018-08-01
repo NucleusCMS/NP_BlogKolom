@@ -68,7 +68,7 @@ class NP_BlogKolom extends NucleusPlugin {
 		$amount   = isset($p[2]) ? $p[2] : '2x5';
 		$category = isset($p[3]) ? $p[3] : '';
 		
-		if(!empty($catid)) $category = $blog->getCategoryName($catid);
+		if($blog && !empty($catid)) $category = $blog->getCategoryName($catid);
 //		if($category == '' || !empty($catid)) $category = $blog->getCategoryName($catid);
 		$amount = trim($amount);
 		$offset = preg_match('@\(([0-9]+)\)$@', $amount);
