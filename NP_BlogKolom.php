@@ -14,7 +14,7 @@ class NP_BlogKolom extends NucleusPlugin {
 	function getName()              { return 'Show in table'; }
 	function getAuthor()            { return '-=Xiffy=-, yama.kyms'; }
 	function getURL()               { return 'http://japan.nucleuscms.org/wiki/plugins:blogkolom'; }
-	function getVersion()           { return '0.24'; }
+	function getVersion()           { return '0.3'; }
 	function supportsFeature($what) { return ($what=='SqlTablePrefix')?1:0; }
 	function getDescription()       {
 	return 'Call this instead of &lt;%blog()%&gt; to show your items side by side in a table by using &lt;%BlogKolom(template,2x5)%&gt; or &lt;%BlogKolom(template,2x5(1))%&gt;.';
