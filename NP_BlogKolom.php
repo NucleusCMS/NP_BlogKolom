@@ -187,7 +187,7 @@ class NP_BlogKolom extends NucleusPlugin {
 		
 		// loop over all items
 		$itemcount = 0;
-		while ($item = mysql_fetch_object($items))
+		while ($item = sql_fetch_object($items))
 		{
 			$item->timestamp = strtotime($item->itime);	// string timestamp -> unix timestamp
 
@@ -277,7 +277,7 @@ class NP_BlogKolom extends NucleusPlugin {
 			}
 			
 			// parse item
-			$numrows = mysql_num_rows($items);
+			$numrows = sql_num_rows($items);
 			$parser->parse($template['ITEM']);			
 			if ($itemcount == $numrows)
 			{
@@ -326,7 +326,7 @@ class NP_BlogKolom extends NucleusPlugin {
 
 		echo '</tr></table>';		
 		$parser->parse($template['ITEM_FOOTER']);
-		mysql_free_result($items);	// free memory
+		sql_free_result($items);	// free memory
 		return $numrows;
 	}
 
