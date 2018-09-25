@@ -14,13 +14,13 @@ class NP_BlogKolom extends NucleusPlugin {
 	function getName()              { return 'Show in table'; }
 	function getAuthor()            { return '-=Xiffy=-, yama.kyms'; }
 	function getURL()               { return 'http://japan.nucleuscms.org/wiki/plugins:blogkolom'; }
-	function getVersion()           { return '0.3'; }
+	function getVersion()           { return '0.3.1'; }
 	function supportsFeature($what) { return ($what=='SqlTablePrefix')?1:0; }
 	function getDescription()       {
 	return 'Call this instead of &lt;%blog()%&gt; to show your items side by side in a table by using &lt;%BlogKolom(template,2x5)%&gt; or &lt;%BlogKolom(template,2x5(1))%&gt;.';
                                     }
 
-	function doTemplateVar(	&$item)
+	function doTemplateVar(&$item)
 	{
 		global $startpos;
         $params = func_get_args();
@@ -175,15 +175,6 @@ class NP_BlogKolom extends NucleusPlugin {
 		echo "<table class=\"blogkolom\">";
 
 		$parser->parse($template['ITEM_HEADER']);
-		$param = array
-        (
-            'blog' => &$b,
-            'item' => &$item
-        );
-		$manager->notify
-		(
-			'PreItem',$param
-		);
 		
 		// loop over all items
 		$itemcount = 0;
@@ -278,7 +269,7 @@ class NP_BlogKolom extends NucleusPlugin {
 			
 			// parse item
 			$numrows = sql_num_rows($items);
-			$parser->parse($template['ITEM']);			
+			$parser->parse($template['ITEM']);
 			if ($itemcount == $numrows)
 			{
                 $param = array
